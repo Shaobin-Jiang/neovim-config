@@ -1,0 +1,5 @@
+-- This file is only meant for elaborating the use of the vim-surround plugin
+-- ysiw) for wrapping the current word with (), no blank spaces at either side
+-- ds for removing
+-- cs for replacing
+-- Visual mode: selecting, then S, then the content to wrap it with
