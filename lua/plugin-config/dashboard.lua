@@ -4,6 +4,61 @@ if not status then
   return
 end
 
+db.setup({
+    theme = 'doom',
+    config = {
+        header = {
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗]],
+            [[████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║]],
+            [[██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║]],
+            [[██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║]],
+            [[██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║]],
+            [[╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+            [[]],
+            [[                      0.8.3                       ]],
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[ ]],
+        },
+        center = {
+            {
+                icon = '  ',
+                desc = 'Preview colorscheme',
+                action = 'Telescope colorscheme'
+            },
+            {
+                icon = '  ',
+                desc = 'Edit keybindings   ',
+                action = 'edit C:/Users/dell/AppData/Local/nvim/lua/keybindings.lua'
+            },
+            {
+                icon = '  ',
+                desc = 'Edit preferences   ',
+                action = 'edit C:/Users/dell/AppData/Local/nvim/init.lua'
+            },
+            {
+                icon = '  ',
+                desc = 'Install plugins    ',
+                action = 'edit C:/Users/dell/AppData/Local/nvim/lua/plugins.lua'
+            }
+        },
+        footer = {
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[ ]],
+            [[Work hard, and enjoy coding with vim.]]
+        }
+    }
+})
+
 db.header_pad = 6 -- Lines from header to top
 db.center_pad = 4 -- Lines from center to header
 db.footer_pad = 4 -- Lines from footer to center

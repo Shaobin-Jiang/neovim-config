@@ -1,37 +1,46 @@
-local lsp_installer = require("nvim-lsp-installer")
+require("mason").setup({
+	ui = {
+		icons = {
+			package_installed = "✓",
+			package_pending = "➜",
+			package_uninstalled = "✗",
+		},
+	},
+})
 
--- https://github.com/williamboman/nvim-lsp-installer#available-lsps
+-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"clangd",
+		"cssls",
+		"emmet_ls",
+		"gopls",
+		"html",
+		"jsonls",
+		"lua_ls",
+		"pyright",
+		"tsserver",
+	},
+})
+
+local lspconfig = require("lspconfig")
+
 local servers = {
-	sumneko_lua = require("lsp.config.lua"),
 	clangd = require("lsp.config.clangd"),
 	cssls = require("lsp.config.css"),
-	html = require("lsp.config.html"),
-	jsonls = require("lsp.config.jsonls"),
-	pyright = require("lsp.config.pyright"),
-	tsserver = require("lsp.config.tsserver"),
 	emmet_ls = require("lsp.config.emmet"),
 	gopls = require("lsp.config.gopls"),
-    fortls = require("lsp.config.fortran"),
+	html = require("lsp.config.html"),
+	jsonls = require("lsp.config.json"),
+	lua_ls = require("lsp.config.lua"),
+	pyright = require("lsp.config.pyright"),
+	tsserver = require("lsp.config.typescript"),
 }
 
-for name, _ in pairs(servers) do
-	local server_is_found, server = lsp_installer.get_server(name)
-	if server_is_found then
-		if not server:is_installed() then
-			print("Installing " .. name)
-			server:install()
-		end
+for name, config in pairs(servers) do
+	if config ~= nil and type(config) == "table" then
+		config.on_setup(lspconfig[name])
+	else
+		lspconfig[name].setup({})
 	end
 end
-
-lsp_installer.on_server_ready(function(server)
-	local config = servers[server.name]
-	if config == nil then
-		return
-	end
-	if config.on_setup then
-		config.on_setup(server)
-	else
-		server:setup({})
-	end
-end)

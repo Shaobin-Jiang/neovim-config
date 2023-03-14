@@ -1,25 +1,23 @@
--- Incase of gopls installation failure:
--- go env -w GO111MODULE=on
--- go env -w GOPROXY=https://goproxy.cn,direct
+local common = require("lsp.common-config")
 local opts = {
-    flags = {
-        debounce_text_changes = 150,
+  capabilities = common.capabilities,
+  flags = common.flags,
+  on_attach = function(_, bufnr)
+    common.keyAttach(bufnr)
+    -- common.disableFormat(client)
+  end,
+  -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
     },
-    on_attach = function(client, bufnr)
-        -- Disable format; this should be handled by other plugins
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
-
-        local function buf_set_keymap(...)
-            vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        
-        require('keybindings').mapLSP(buf_set_keymap)
-    end,
+  },
 }
-
 return {
-    on_setup = function(server)
-        server:setup(opts)
-    end,
+  on_setup = function(server)
+    server.setup(opts)
+  end,
 }

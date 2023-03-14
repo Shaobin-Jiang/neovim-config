@@ -175,7 +175,7 @@ pluginKeys.mapLSP = function(mapbuf)
 	mapbuf("n", "gP", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
 	mapbuf("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
 	mapbuf("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
-	mapbuf("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
+	mapbuf("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format({async=true})<CR>", opt)
 end
 
 -- Cmp

@@ -25,7 +25,8 @@ packer.startup({
 		use({ "p00f/nvim-ts-rainbow" })
 
 		-- lsp
-		use("williamboman/nvim-lsp-installer")
+        use({ "williamboman/mason.nvim" })
+        use({ "williamboman/mason-lspconfig.nvim" })
 		use({ "neovim/nvim-lspconfig" })
 
 		-- completion

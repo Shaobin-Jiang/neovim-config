@@ -1,26 +1,36 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
+local common = require("lsp.common-config")
 local opts = {
-    capabilities = capabilities,
-    flags = {
-        debounce_text_changes = 150,
+  capabilities = common.capabilities,
+  flags = common.flags,
+  on_attach = function(client, bufnr)
+    common.disableFormat(client)
+    common.keyAttach(bufnr)
+  end,
+  settings = {
+    css = {
+      validate = true,
+      -- tailwindcss
+      lint = {
+        unknownAtRules = "ignore",
+      },
     },
-    on_attach = function(client, bufnr)
-        -- Disable format; this should be handled by other plugins
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
-
-        local function buf_set_keymap(...)
-            vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        
-        require('keybindings').mapLSP(buf_set_keymap)
-    end,
+    less = {
+      validate = true,
+      lint = {
+        unknownAtRules = "ignore",
+      },
+    },
+    scss = {
+      validate = true,
+      lint = {
+        unknownAtRules = "ignore",
+      },
+    },
+  },
 }
 
 return {
-    on_setup = function(server)
-        server:setup(opts)
-    end,
+  on_setup = function(server)
+    server.setup(opts)
+  end,
 }
